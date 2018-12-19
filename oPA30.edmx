@@ -1,10 +1,51 @@
 <edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:sap="http://www.sap.com/Protocols/SAPData">
 	<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
-		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="S1">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="PA30">
+			<EntityType Name="PA0000">
+				<Key>
+					<PropertyRef  Name="PERNR"/>
+					<PropertyRef  Name="BEGDA"/>
+					<PropertyRef  Name="ENDDA"/>
+				</Key>
+				<Property Name="PERNR" Type="Edm.String" Nullable="false" sap:label="Nº de pessoal"></Property>
+				<Property Name="BEGDA" Type="Edm.String" Nullable="false" sap:label="Inicio de validade"></Property>
+				<Property Name="ENDDA" Type="Edm.String" Nullable="false" sap:label="Fim de validade"></Property>
+				<Property Name="UNAME" Type="Edm.String" Nullable="true" sap:label="Usuário modificador"></Property>
+				<Property Name="AEDTM" Type="Edm.String" Nullable="true" sap:label="Data modificação"></Property>
+				<Property Name="MASSN" Type="Edm.String" Nullable="true" sap:label="Medida"></Property>
+				<Property Name="MASSG" Type="Edm.String" Nullable="true" sap:label="Motivo"></Property>
+				<Property Name="STAT2" Type="Edm.String" Nullable="true" sap:label="Status ocupação"></Property>
+				<NavigationProperty Name="ToPA0001" Relationship="PA30.PA0000_PA0001" ToRole="Child" FromRole="Parent"></NavigationProperty>
+			</EntityType>
+			<EntityType Name="PA0001">
+				<Key>
+					<PropertyRef  Name="PERNR"/>
+					<PropertyRef  Name="BEGDA"/>
+					<PropertyRef  Name="ENDDA"/>
+				</Key>
+				<Property Name="PERNR" Type="Edm.String" Nullable="false" sap:label="Nº de pessoal"></Property>
+				<Property Name="BEGDA" Type="Edm.String" Nullable="false" sap:label="Inicio de validade"></Property>
+				<Property Name="ENDDA" Type="Edm.String" Nullable="false" sap:label="Fim de validade"></Property>
+				<Property Name="UNAME" Type="Edm.String" Nullable="true" sap:label="Usuário modificador"></Property>
+				<Property Name="AEDTM" Type="Edm.String" Nullable="true" sap:label="Data modificação"></Property>
+				<Property Name="PERSG" Type="Edm.String" Nullable="true" sap:label="Grupo de empregados"></Property>
+				<Property Name="ORGEH" Type="Edm.String" Nullable="true" sap:label="Unidade Organizacional"></Property>
+				<Property Name="PLANS" Type="Edm.String" Nullable="true" sap:label="Posição"></Property>
+				<Property Name="STELL" Type="Edm.String" Nullable="true" sap:label="Cargo"></Property>
+			</EntityType>
+			
+			<Association Name="PA0000_PA0001">
+				<End Type="PA30.PA0000" Role="Parent" Multiplicity="1"></End>
+				<End Type="PA30.PA0001" Role="Child" Multiplicity="1"></End>
+			</Association>
 			<EntityContainer Name="EC1" m:IsDefaultEntityContainer="true">
-				<EntitySet Name="EC2" EntityType="EC2"></EntitySet>
-				<EntitySet Name="EC3" EntityType="EC3"></EntitySet>
-				<EntitySet Name="EC4" EntityType="EC4"></EntitySet>
+				<EntitySet Name="PA0000Set" EntityType="PA30.PA0000"></EntitySet>
+				<EntitySet Name="PA0001Set" EntityType="PA30.PA0001"></EntitySet>
+				
+				<AssociationSet Name="PA0000_PA0001" Association="PA30.PA0000_PA0001">
+					<End Role="Parent" EntitySet="PA0000Set" ></End>
+					<End Role="Child"  EntitySet="PA0001Set"></End>
+				</AssociationSet>                                     
 			</EntityContainer>
 		</Schema>
 	</edmx:DataServices>
