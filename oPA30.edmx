@@ -4,6 +4,7 @@
 			<EntityContainer Name="EC1" m:IsDefaultEntityContainer="true">
 				<EntitySet Name="EC2" EntityType="EC2"></EntitySet>
 				<EntitySet Name="EC3" EntityType="EC3"></EntitySet>
+				<EntitySet Name="EC4" EntityType="EC4"></EntitySet>
 			</EntityContainer>
 		</Schema>
 	</edmx:DataServices>
