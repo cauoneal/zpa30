@@ -1,6 +1,18 @@
 <edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:sap="http://www.sap.com/Protocols/SAPData">
 	<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
 		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="PA30">
+			<EntityType Name="PSKEY">
+				<Key>
+					<PropertyRef  Name="PERNR"/>
+					<PropertyRef  Name="BEGDA"/>
+					<PropertyRef  Name="ENDDA"/>
+				</Key>
+				<Property Name="PERNR" Type="Edm.String" Nullable="false" sap:label="Nº de pessoal"></Property>
+				<Property Name="BEGDA" Type="Edm.String" Nullable="false" sap:label="Inicio de validade"></Property>
+				<Property Name="ENDDA" Type="Edm.String" Nullable="false" sap:label="Fim de validade"></Property>
+				<NavigationProperty Name="ToPA0000" Relationship="PA30.PSKEY_PA0000" ToRole="Child" FromRole="Parent"></NavigationProperty>
+				<NavigationProperty Name="ToPA0001" Relationship="PA30.PSKEY_PA0001" ToRole="Child" FromRole="Parent"></NavigationProperty>
+			</EntityType>
 			<EntityType Name="PA0000">
 				<Key>
 					<PropertyRef  Name="PERNR"/>
@@ -15,6 +27,8 @@
 				<Property Name="MASSN" Type="Edm.String" Nullable="true" sap:label="Medida"></Property>
 				<Property Name="MASSG" Type="Edm.String" Nullable="true" sap:label="Motivo"></Property>
 				<Property Name="STAT2" Type="Edm.String" Nullable="true" sap:label="Status ocupação"></Property>
+				<Property Name="PLANS" Type="Edm.String" Nullable="true" sap:label="Posição"></Property>
+				<NavigationProperty Name="ToPA0000" Relationship="PA30.PSKEY_PA0000" ToRole="Child" FromRole="Parent"></NavigationProperty>
 				<NavigationProperty Name="ToPA0001" Relationship="PA30.PA0000_PA0001" ToRole="Child" FromRole="Parent"></NavigationProperty>
 			</EntityType>
 			<EntityType Name="PA0001">
@@ -32,20 +46,110 @@
 				<Property Name="ORGEH" Type="Edm.String" Nullable="true" sap:label="Unidade Organizacional"></Property>
 				<Property Name="PLANS" Type="Edm.String" Nullable="true" sap:label="Posição"></Property>
 				<Property Name="STELL" Type="Edm.String" Nullable="true" sap:label="Cargo"></Property>
+				<NavigationProperty Name="ToPA0001" Relationship="PA30.PSKEY_PA0001" ToRole="Child" FromRole="Parent"></NavigationProperty>
 			</EntityType>
 			
+			<EntityType Name="PA0002">
+				<Key>
+					<PropertyRef  Name="PERNR"/>
+					<PropertyRef  Name="BEGDA"/>
+					<PropertyRef  Name="ENDDA"/>
+				</Key>
+				<Property Name="PERNR" Type="Edm.String" Nullable="false" sap:label="Nº de pessoal"></Property>
+				<Property Name="BEGDA" Type="Edm.String" Nullable="false" sap:label="Inicio de validade"></Property>
+				<Property Name="ENDDA" Type="Edm.String" Nullable="false" sap:label="Fim de validade"></Property>
+				<Property Name="VORNA" Type="Edm.String" Nullable="false" sap:label="Nº de pessoal"></Property>
+				<Property Name="NACHN" Type="Edm.String" Nullable="false" sap:label="1º nome"></Property>
+				<Property Name="GESCH" Type="Edm.String" Nullable="false" sap:label="Sexo"></Property>
+				<Property Name="GBDAT" Type="Edm.String" Nullable="true" sap:label="Data de nascimento"></Property>
+				<Property Name="FAMST" Type="Edm.String" Nullable="true" sap:label="Estado Civil"></Property>
+				<NavigationProperty Name="ToPA0002" Relationship="PA30.PSKEY_PA0002" ToRole="Child" FromRole="Parent"></NavigationProperty>
+			</EntityType>	
+			<EntityType Name="PA0007">
+				<Key>
+					<PropertyRef  Name="PERNR"/>
+					<PropertyRef  Name="BEGDA"/>
+					<PropertyRef  Name="ENDDA"/>
+				</Key>
+				<Property Name="PERNR" Type="Edm.String" Nullable="false" sap:label="Nº de pessoal"></Property>
+				<Property Name="BEGDA" Type="Edm.String" Nullable="false" sap:label="Inicio de validade"></Property>
+				<Property Name="ENDDA" Type="Edm.String" Nullable="false" sap:label="Fim de validade"></Property>
+				<Property Name="SCHKZ" Type="Edm.String" Nullable="false" sap:label="Regra para horário de trabalho"></Property>
+				<NavigationProperty Name="ToPA0007" Relationship="PA30.PSKEY_PA0007" ToRole="Child" FromRole="Parent"></NavigationProperty>
+			</EntityType>
+			
+			<EntityType Name="PA0008">
+				<Key>
+					<PropertyRef  Name="PERNR"/>
+					<PropertyRef  Name="BEGDA"/>
+					<PropertyRef  Name="ENDDA"/>
+				</Key>
+				<Property Name="PERNR" Type="Edm.String" Nullable="false" sap:label="Nº de pessoal"></Property>
+				<Property Name="BEGDA" Type="Edm.String" Nullable="false" sap:label="Inicio de validade"></Property>
+				<Property Name="ENDDA" Type="Edm.String" Nullable="false" sap:label="Fim de validade"></Property>
+				<Property Name="TRFAR" Type="Edm.String" Nullable="false" sap:label="Tipo de tarifa"></Property>
+				<Property Name="TRFGB" Type="Edm.String" Nullable="false" sap:label="Regra"></Property>
+				<Property Name="TRFGR" Type="Edm.String" Nullable="false" sap:label="Faixa"></Property>
+				<Property Name="TRFST" Type="Edm.String" Nullable="false" sap:label="Nivel"></Property>
+				<NavigationProperty Name="ToPA0008" Relationship="PA30.PSKEY_PA0008" ToRole="Child" FromRole="Parent"></NavigationProperty>
+			</EntityType>			
+			
+			<Association Name="PSKEY_PA0000">
+				<End Type="PA30.PSKEY" Role="Parent" Multiplicity="1"></End>
+				<End Type="PA30.PA0000" Role="Child" Multiplicity="1"></End>
+			</Association>
+			<Association Name="PSKEY_PA0001">
+				<End Type="PA30.PSKEY" Role="Parent" Multiplicity="1"></End>
+				<End Type="PA30.PA0001" Role="Child" Multiplicity="1"></End>
+			</Association>
 			<Association Name="PA0000_PA0001">
 				<End Type="PA30.PA0000" Role="Parent" Multiplicity="1"></End>
 				<End Type="PA30.PA0001" Role="Child" Multiplicity="1"></End>
 			</Association>
+			<Association Name="PSKEY_PA0002">
+				<End Type="PA30.PSKEY" Role="Parent" Multiplicity="1"></End>
+				<End Type="PA30.PA0002" Role="Child" Multiplicity="1"></End>
+			</Association>
+			<Association Name="PSKEY_PA0007">
+				<End Type="PA30.PSKEY" Role="Parent" Multiplicity="1"></End>
+				<End Type="PA30.PA0007" Role="Child" Multiplicity="1"></End>
+			</Association>
+			<Association Name="PSKEY_PA0008">
+				<End Type="PA30.PSKEY" Role="Parent" Multiplicity="1"></End>
+				<End Type="PA30.PA0008" Role="Child" Multiplicity="1"></End>
+			</Association>
 			<EntityContainer Name="EC1" m:IsDefaultEntityContainer="true">
+				<EntitySet Name="PSKEYSet" EntityType="PA30.PSKEY" ></EntitySet>
 				<EntitySet Name="PA0000Set" EntityType="PA30.PA0000"></EntitySet>
 				<EntitySet Name="PA0001Set" EntityType="PA30.PA0001"></EntitySet>
+				<EntitySet Name="PA0002Set" EntityType="PA30.PA0002"></EntitySet>
+				<EntitySet Name="PA0007Set" EntityType="PA30.PA0007"></EntitySet>
+				<EntitySet Name="PA0008Set" EntityType="PA30.PA0008"></EntitySet>
 				
+				<AssociationSet Name="PSKEY_PA0000" Association="PA30.PSKEY_PA0000">
+					<End Role="Parent" EntitySet="PSKEYSet" ></End>
+					<End Role="Child"  EntitySet="PA0000Set"></End>
+				</AssociationSet>     
+				<AssociationSet Name="PSKEY_PA0001" Association="PA30.PSKEY_PA0001">
+					<End Role="Parent" EntitySet="PSKEYSet" ></End>
+					<End Role="Child"  EntitySet="PA0001Set"></End>
+				</AssociationSet>
 				<AssociationSet Name="PA0000_PA0001" Association="PA30.PA0000_PA0001">
 					<End Role="Parent" EntitySet="PA0000Set" ></End>
 					<End Role="Child"  EntitySet="PA0001Set"></End>
-				</AssociationSet>                                     
+				</AssociationSet>
+				<AssociationSet Name="PSKEY_PA0002" Association="PA30.PSKEY_PA0002">
+					<End Role="Parent" EntitySet="PSKEYSet" ></End>
+					<End Role="Child"  EntitySet="PA0002Set"></End>
+				</AssociationSet>
+				<AssociationSet Name="PSKEY_PA0007" Association="PA30.PSKEY_PA0007">
+					<End Role="Parent" EntitySet="PSKEYSet" ></End>
+					<End Role="Child"  EntitySet="PA0007Set"></End>
+				</AssociationSet>		
+				<AssociationSet Name="PSKEY_PA0008" Association="PA30.PSKEY_PA0008">
+					<End Role="Parent" EntitySet="PSKEYSet" ></End>
+					<End Role="Child"  EntitySet="PA0008Set"></End>
+				</AssociationSet>		
 			</EntityContainer>
 		</Schema>
 	</edmx:DataServices>
